@@ -1,0 +1,4 @@
+.idea
+/Tests/.pytest_cache/
+/tests/geckodriver.log
+/geckodriver.log
