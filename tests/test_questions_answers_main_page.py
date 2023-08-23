@@ -5,6 +5,7 @@ from locators.main_page_loc import MainPageLoc
 from variables import correct_answers as ca
 
 
+@allure.feature('Информация для пользователей в блоке Вопросы о важном')
 class TestMainPageQuestions:
     @allure.title('Тест ответов на вопросы на главной странице')
     @allure.description(
@@ -19,7 +20,13 @@ class TestMainPageQuestions:
         (MainPageLoc.question_6, MainPageLoc.answer_q6, ca.get('correct_answer_q6')),
         (MainPageLoc.question_7, MainPageLoc.answer_q7, ca.get('correct_answer_q7'))
     ))
-    def test_main_page_answers_to_questions(self, user, question_locator, answer_locator, correct_answer_to_question):
-        main_page_user = MainPage(user)
+    def test_main_page_answers_to_questions(self, browser, question_locator, answer_locator,
+                                            correct_answer_to_question):
+        main_page_user = MainPage(browser)
         main_page_user.get_question_answer(question_locator, answer_locator)
-        assert main_page_user.get_element_text(answer_locator) == correct_answer_to_question
+        result_answer = main_page_user.get_element_text(answer_locator)
+        question_text = main_page_user.get_element_text(question_locator)
+        assert result_answer == correct_answer_to_question, \
+            f'''На вопрос {question_text} выводится некоррекнтый ответ:
+            Ожидается - {correct_answer_to_question}.
+            Получен - {result_answer}'''

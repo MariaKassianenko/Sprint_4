@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from random import choice
 
 
 class OrderPageLoc:
@@ -14,6 +15,8 @@ class OrderPageLoc:
     when_field = (By.XPATH, '//input[@placeholder="* Когда привезти самокат"]')
     time_field = (By.XPATH, '//div[contains(text(),"* Срок аренды")]')
     comment_field = (By.XPATH, '//input[@placeholder="Комментарий для курьера"]')
+    color = choice(['black', 'grey'])
+    color_field_loc = (By.XPATH, f'//div[contains(@class, "Order_Checkboxes")]//input[@id="{color}"]')
     time_options = (
         (By.XPATH, '//div[contains(text(),"сутки")]'),
         (By.XPATH, '//div[contains(text(),"двое суток")]'),
@@ -30,3 +33,7 @@ class OrderPageLoc:
 
 def date_locator(day):
     return By.XPATH, f'//*[@class="react-datepicker"]//*[text()="{day}"]'
+
+
+def color_field_loc(color):
+    return

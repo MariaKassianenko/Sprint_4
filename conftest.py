@@ -4,7 +4,7 @@ from urls import main_page
 
 
 @pytest.fixture
-def user():
+def browser():
     browser = webdriver.Firefox()
     browser.maximize_window()
     browser.get(main_page)
